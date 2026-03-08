@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        UpgradeManager.Instance.Initialize(shopitems);
+
         foreach (ShopItemSO item in shopitems)
         {
             UIManager.Instance.AddToShopContent(item);

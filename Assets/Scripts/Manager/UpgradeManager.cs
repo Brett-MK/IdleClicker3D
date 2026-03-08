@@ -10,6 +10,7 @@ namespace Manager
         private Dictionary<int, int> upgradeLevels = new Dictionary<int, int>();
 
         public static UpgradeManager Instance;
+
         private void Awake()
         {
             if (Instance == null)
@@ -18,9 +19,12 @@ namespace Manager
             }
         }
 
-        void Start()
+        // Explicit initialization to control startup ordering.
+        public void Initialize(ShopItemSO[] items)
         {
-            foreach (ShopItemSO item in GameManager.Instance.ShopItems)
+            if (items == null) return;
+
+            foreach (ShopItemSO item in items)
             {
                 upgradeLevels.Add(item.id, DEFAULT_UPGRADE_LEVEL);
             }
