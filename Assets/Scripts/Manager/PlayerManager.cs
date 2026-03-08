@@ -1,5 +1,6 @@
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Manager
 {
@@ -15,11 +16,13 @@ namespace Manager
             {
                 currentCash = value;
                 UIManager.Instance.SetCurrentCashLabel((int)currentCash);
+                OnCashChanged.Invoke(currentCash);
             }
         }
 
 
         public static PlayerManager Instance;
+        public UnityEvent<double> OnCashChanged;
 
         private void Awake()
         {
