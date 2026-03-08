@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5192b21469ef1347a7da94ce8dae470, type: 3}
   m_Name: Upgrade Stone
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemSO
-  itemName: 
+  id: 3
+  itemName: Upgrade Stone
   itemSprite: {fileID: 0}
-  itemPrice: 0
+  basePrice: 8
+  rateGrowth: 1.08
+  baseProduction: 2
