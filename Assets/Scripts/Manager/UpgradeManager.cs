@@ -7,7 +7,8 @@ namespace Manager
     public class UpgradeManager : MonoBehaviour
     {
         private static readonly int DEFAULT_UPGRADE_LEVEL = 1;
-        private Dictionary<int, int> upgradeLevels = new Dictionary<int, int>();
+        private Dictionary<ShopItemSO, int> upgradeLevels = new Dictionary<ShopItemSO, int>();
+        public Dictionary<ShopItemSO, int> UpgradeLevels => upgradeLevels;
 
         public static UpgradeManager Instance;
 
@@ -26,18 +27,18 @@ namespace Manager
 
             foreach (ShopItemSO item in items)
             {
-                upgradeLevels.Add(item.id, DEFAULT_UPGRADE_LEVEL);
+                upgradeLevels.Add(item, DEFAULT_UPGRADE_LEVEL);
             }
         }
 
         public int GetUpgradeLevel(ShopItemSO item)
         {
-            return upgradeLevels[item.id];
+            return upgradeLevels[item];
         }
 
         private void IncreaseUpgradeLevel(ShopItemSO item)
         {
-            upgradeLevels[item.id]++;
+            upgradeLevels[item]++;
         }
 
         public void UpgradeShopItem(ShopItemSO item)
@@ -49,7 +50,25 @@ namespace Manager
             {
                 IncreaseUpgradeLevel(item);
                 PlayerManager.Instance.CurrentCash -= upgradePrice;
+
+                if (item.itemType == ShopItemType.MINER_AMOUNT)
+                {
+                    SpawnManager.instance.SpawnHuman();
+                }
             }
+        }
+
+        public ShopItemSO GetShopItemByType(ShopItemType type)
+        {
+            foreach (ShopItemSO item in GameManager.Instance.ShopItems)
+            {
+                if (item.itemType == type)
+                {
+                    return item;
+                }
+            }
+
+            return null;
         }
     }
 }

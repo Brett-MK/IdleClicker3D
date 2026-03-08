@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Manager;
 using UI;
 using UnityEngine;
@@ -27,6 +28,19 @@ public class GameManager : MonoBehaviour
         foreach (ShopItemSO item in shopitems)
         {
             UIManager.Instance.AddToShopContent(item);
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveSystem.SaveGamestate();
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            SaveSystem.SaveGamestate();
         }
     }
 }

@@ -20,6 +20,15 @@ namespace Manager
             }
         }
 
+        public double CurrentPremiumCurrency
+        {
+            get { return currentPremiumCurrency; }
+            set
+            {
+                currentPremiumCurrency = value;
+            }
+        }
+
 
         public static PlayerManager Instance;
         public UnityEvent<double> OnCashChanged;

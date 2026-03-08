@@ -8,6 +8,7 @@ public class ShopItemSO : ScriptableObject
     public int id;
     public string itemName;
     public Sprite itemSprite;
+    public ShopItemType itemType;
 
     [Header("Shop Details")]
     public int basePrice;
@@ -25,4 +26,12 @@ public class ShopItemSO : ScriptableObject
     {
         return baseProduction * currentLevel;
     }
+}
+
+
+public enum ShopItemType
+{
+    MINER_AMOUNT = 1,
+    MINER_LEVEL = 2,
+    STONE_LEVEL = 3
 }
