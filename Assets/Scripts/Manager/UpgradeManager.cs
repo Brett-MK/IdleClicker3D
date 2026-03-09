@@ -18,17 +18,14 @@ namespace Manager
             {
                 Instance = this;
             }
-        }
 
-        // Explicit initialization to control startup ordering.
-        public void Initialize(ShopItemSO[] items)
-        {
-            if (items == null) return;
 
-            foreach (ShopItemSO item in items)
+            foreach (ShopItemSO item in GameManager.Instance.ShopItems)
             {
                 upgradeLevels.Add(item, DEFAULT_UPGRADE_LEVEL);
             }
+
+            GameManager.Instance.OnLoadData.AddListener(LoadData);
         }
 
         public int GetUpgradeLevel(ShopItemSO item)
@@ -69,6 +66,17 @@ namespace Manager
             }
 
             return null;
+        }
+
+        private void LoadData(SaveData saveData)
+        {
+            if (saveData == null) return;
+
+            foreach (UpgradeLevel upgradeLevel in saveData.upgradeSaveData.upgradeLevels)
+            {
+                ShopItemSO item = GameManager.Instance.GetShopItemById(upgradeLevel.id);
+                this.upgradeLevels[item] = upgradeLevel.level;
+            }
         }
     }
 }

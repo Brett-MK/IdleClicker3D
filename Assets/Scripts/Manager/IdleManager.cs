@@ -18,6 +18,8 @@ namespace Manager
             {
                 Instance = this;
             }
+
+            GameManager.Instance.OnLoadData.AddListener(LoadData);
         }
 
         private void Update()
@@ -41,6 +43,16 @@ namespace Manager
             ShopItemSO upgrade = UpgradeManager.Instance.GetShopItemByType(itemType);
             int upgradeLevel = UpgradeManager.Instance.GetUpgradeLevel(upgrade);
             return upgrade.GetCurrentProduction(upgradeLevel);
+        }
+
+        private void LoadData(SaveData saveData)
+        {
+            cashPerSecond = saveData.idleSaveData.cashPerSecond;
+            int diffTicks = (int)((DateTime.Now.Ticks - saveData.currentTimeStamp) / TimeSpan.TicksPerMillisecond);
+
+            Debug.Log(diffTicks);
+            Debug.Log(FormatNumbers.Format(diffTicks * cashPerSecond));
+            Debug.Log(cashPerSecond);
         }
     }
 }

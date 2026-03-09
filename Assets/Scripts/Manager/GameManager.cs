@@ -2,6 +2,7 @@ using System.Runtime.CompilerServices;
 using Manager;
 using UI;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class GameManager : MonoBehaviour
     public ShopItemSO[] ShopItems { get => shopitems; }
 
     public static GameManager Instance;
+
+    public UnityEvent<SaveData> OnLoadData = new UnityEvent<SaveData>();
 
     private void Awake()
     {
@@ -23,11 +26,15 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        UpgradeManager.Instance.Initialize(shopitems);
-
         foreach (ShopItemSO item in shopitems)
         {
             UIManager.Instance.AddToShopContent(item);
+        }
+
+        SaveData saveData = LoadSystem.LoadGameState();
+        if (saveData != null)
+        {
+            OnLoadData.Invoke(saveData);
         }
     }
 
@@ -42,5 +49,18 @@ public class GameManager : MonoBehaviour
         {
             SaveSystem.SaveGamestate();
         }
+    }
+
+    public ShopItemSO GetShopItemById(int id)
+    {
+        foreach (ShopItemSO item in shopitems)
+        {
+            if (item.id == id)
+            {
+                return item;
+            }
+        }
+
+        return null;
     }
 }

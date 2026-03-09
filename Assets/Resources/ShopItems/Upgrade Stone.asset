@@ -15,6 +15,7 @@ MonoBehaviour:
   id: 3
   itemName: Upgrade Stone
   itemSprite: {fileID: 0}
+  itemType: 3
   basePrice: 8
   rateGrowth: 1.08
   baseProduction: 2

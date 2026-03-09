@@ -66,7 +66,7 @@ public class PlayerSaveData
 public class UpgradeSaveData
 {
     [SerializeField]
-    private List<UpgradeLevel> upgradeLevels = new List<UpgradeLevel>();
+    public List<UpgradeLevel> upgradeLevels = new List<UpgradeLevel>();
 
     public UpgradeSaveData(UpgradeManager upgradeManager)
     {

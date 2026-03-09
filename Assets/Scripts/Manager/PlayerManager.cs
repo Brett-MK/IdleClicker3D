@@ -39,6 +39,14 @@ namespace Manager
             {
                 Instance = this;
             }
+
+            GameManager.Instance.OnLoadData.AddListener(LoadData);
+        }
+
+        private void LoadData(SaveData saveData)
+        {
+            this.currentCash = saveData.playerSaveData.currentCash;
+            this.currentPremiumCurrency = saveData.playerSaveData.currentPremiumCurrency;
         }
     }
 }
